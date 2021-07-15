@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+        https://www.liquibase.org/xml/ns/dbchangelog-ext
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd ">
+
+    <changeSet id="create tables" author="postgres">
+        <createTable tableName="client">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+        </createTable>
+
+        <createTable tableName="account">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="number" type="varchar(50)"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="client_id" type="uuid">
+                <constraints referencedTableName="client" referencedColumnNames="id"
+                             foreignKeyName="account_client_fk" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="payment">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="payer_id" type="uuid">
+                <constraints referencedTableName="client" referencedColumnNames="id"
+                             foreignKeyName="payment_payer_fk" nullable="false"/>
+            </column>
+            <column name="recipient_id" type="uuid">
+                <constraints referencedTableName="client" referencedColumnNames="id"
+                             foreignKeyName="payment_recipient_fk" nullable="false"/>
+            </column>
+
+            <column name="src_acc" type="uuid">
+                <constraints referencedTableName="account" referencedColumnNames="id"
+                             foreignKeyName="src_acc_number_fk" nullable="false"/>
+            </column>
+            <column name="dst_acc" type="uuid">
+                <constraints referencedTableName="account" referencedColumnNames="id"
+                             foreignKeyName="dst_acc_number_fk" nullable="false"/>
+            </column>
+            <column name="amount" type="double"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="created_at" type="datetime"/>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>
