@@ -69,33 +69,4 @@ public class ClientController {
 
 
 
-
-
-
-//    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-//    public ResponseEntity<UUID> createClient(@RequestBody Client client,Account account){
-//        List<Account> list=new ArrayList<>();
-//        list.add(account);
-//        client.setAccounts(list);
-//        jdbcOperations.update("insert into client (id,first_name,last_name,accounts) values (?, ?, ?, ?)",
-//                client.getClientId(), client.getFirstName(), client.getLastName(), client.getAccounts());
-//        return ResponseEntity.ok(client.getClientId());
-//    }
-//
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<List<Account>> getAccount(@PathVariable UUID id) {
-//        try {
-//            return ResponseEntity.ok(this.jdbcOperations
-//                    .queryForList("select * from account where id = ?"+id+"",List<Account>
-//                            (resultSet, i) ->
-//                                    new Account(UUID.fromString(resultSet.getString("id")),
-//                                            resultSet.getInt("number"),
-//                                            AccountType.valueOf(resultSet.getString("type")),
-//                                            resultSet.getDouble("balance"))));
-//        } catch (IncorrectResultSizeDataAccessException e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
 }
